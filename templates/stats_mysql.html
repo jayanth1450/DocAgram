@@ -1,0 +1,20 @@
+{% extends 'base_mysql.html' %}
+{% block content %}
+<h2>Statistics</h2>
+<ul class="list-group mb-3">
+    <li class="list-group-item">Total Files: {{ total_files }}</li>
+    <li class="list-group-item">Total Users: {{ total_users }}</li>
+    <li class="list-group-item">Total Compressed Storage: {{ "%.2f"|format(total_storage / 1024 / 1024) }} MB</li>
+</ul>
+<h3>Top Uploaders</h3>
+<div class="table-responsive">
+    <table class="table table-sm">
+        <thead><tr><th>User</th><th>Files Uploaded</th></tr></thead>
+        <tbody>
+            {% for username, count in top_users %}
+            <tr><td>{{ username }}</td><td>{{ count }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

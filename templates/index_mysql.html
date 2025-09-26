@@ -1,0 +1,42 @@
+{% extends 'base_mysql.html' %}
+{% block content %}
+<h2>Public Files</h2>
+<form method="get" action="/search" class="mb-3">
+    <input type="text" name="q" class="form-control" placeholder="Search files..." value="{{ search|default('') }}">
+</form>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Uploader</th>
+                <th>Size</th>
+                <th>Description</th>
+                <th class="d-none d-md-table-cell">Downloads</th>
+                <th class="d-none d-md-table-cell">Uploaded</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td>{{ file.original_filename }}</td>
+                <td>{{ file.uploader.username }}</td>
+                <td>{{ "%.2f"|format(file.file_size / 1024 / 1024) }} MB</td>
+                <td>{{ file.description }}</td>
+                <td class="d-none d-md-table-cell">{{ file.download_count }}</td>
+                <td class="d-none d-md-table-cell">{{ file.upload_date.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a href="/preview/{{ file.id }}" class="btn btn-sm btn-info d-block d-sm-inline-block mb-1 mb-sm-0" target="_blank">Preview</a>
+                    {% if session.get('user_id') %}
+                    <a href="/download/{{ file.id }}" class="btn btn-sm btn-success d-block d-sm-inline-block">Download</a>
+                    {% else %}
+                    <span class="text-muted d-block d-sm-inline-block">Login to download</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

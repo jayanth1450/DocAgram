@@ -1,0 +1,34 @@
+{% extends 'base_mysql.html' %}
+{% block content %}
+<h2>My Uploaded Files</h2>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Filename</th>
+                <th>Size</th>
+                <th>Compressed</th>
+                <th>Downloads</th>
+                <th>Uploaded</th>
+                <th>Public</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td>{{ file.original_filename }}</td>
+            <td>{{ "%.2f"|format(file.file_size / 1024 / 1024) }} MB</td>
+            <td>{{ "%.2f"|format(file.compressed_size / 1024 / 1024) }} MB</td>
+                <td>{{ file.download_count }}</td>
+                <td>{{ file.upload_date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ 'Yes' if file.is_public else 'No' }}</td>
+                <td>{{ file.description }}</td>
+                <td><a href="/download/{{ file.id }}" class="btn btn-sm btn-success">Download</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

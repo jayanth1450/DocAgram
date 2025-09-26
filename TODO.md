@@ -1,0 +1,7 @@
+- [x] Add mobile toggle button to navbar in base_mysql.html
+- [x] Wrap table in index_mysql.html with table-responsive
+- [x] Wrap table in my_files_mysql.html with table-responsive
+- [x] Wrap table in stats_mysql.html with table-responsive
+- [ ] Test responsiveness by running app and checking on different screen sizes
+- [x] Replace "MySQL Student Files" with "DocAgram" in templates/base_mysql.html
+- [x] Replace "Public File Gallery" with "Public Files" in templates/index_mysql.html
